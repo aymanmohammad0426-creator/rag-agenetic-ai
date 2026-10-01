@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.graph import graph
 import os
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
 
 app = FastAPI(
     title="Agentic AI RAG Chatbot (Google Gemini)",
@@ -67,12 +70,8 @@ async def health():
 @app.get("/")
 async def root():
     """Root endpoint with documentation."""
-    return {
-        "service": "Agentic AI RAG Chatbot",
-        "version": "1.0.0",
-        "docs": "/docs",
-        "health": "/health"
-    }
+    return RedirectResponse(url="/docs")
+    
 
 if __name__ == "__main__":
     import uvicorn
